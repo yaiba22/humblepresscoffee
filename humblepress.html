@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Humble Press Coffee Roaster</title>
+  <meta name="description" content="Specialty coffee roaster from Cagayan de Oro. Single origin, slow roasted, mindfully crafted." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────── */
+    :root {
+      --linen:       #FAF6F0;
+      --linen-dark:  #F0EAE0;
+      --espresso:    #2C1A0E;
+      --espresso-mid:#4A2E1A;
+      --caramel:     #B06A3A;
+      --caramel-lt:  #D4946A;
+      --cream:       #FDF9F4;
+      --warm-gray:   #8B7968;
+      --warm-gray-lt:#C4B8AB;
+      --ink:         #1A0F08;
+      --serif:       'Libre Baskerville', Georgia, serif;
+      --sans:        'DM Sans', sans-serif;
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      background: var(--linen);
+      color: var(--espresso);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ─── UTILITIES ──────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .serif { font-family: var(--serif); }
+    .sr-only { position: absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--espresso);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--linen);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    .nav-logo span {
+      display: block;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--caramel-lt);
+      letter-spacing: 0.12em;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-gray-lt);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--linen); }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border: 1px solid var(--caramel);
+      color: var(--caramel-lt) !important;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--caramel) !important; color: var(--linen) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .hamburger span { width: 22px; height: 1.5px; background: var(--linen); border-radius: 2px; transition: transform 0.3s; }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 64px;
+      background: var(--linen);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 4rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--caramel);
+    }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      color: var(--espresso);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .hero-headline em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--caramel);
+    }
+    .hero-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--warm-gray);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--espresso);
+      color: var(--linen);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.25s;
+    }
+    .btn-primary:hover { background: var(--espresso-mid); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--espresso); }
+    .btn-ghost::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    .hero-right {
+      background: var(--espresso);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      min-height: 60vh;
+    }
+    .hero-right-inner {
+      text-align: center;
+      padding: 3rem;
+      position: relative; z-index: 2;
+    }
+    .hero-badge {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(176,106,58,0.4);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+    .hero-badge::before {
+      content: '';
+      position: absolute; inset: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(176,106,58,0.2);
+    }
+    .hero-badge-icon { font-size: 3.5rem; line-height: 1; }
+    .hero-badge-text {
+      font-family: var(--serif);
+      font-size: 0.65rem;
+      color: var(--caramel-lt);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .hero-stat-row {
+      display: flex; gap: 2rem; justify-content: center;
+      margin-top: 2rem;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--linen);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--caramel-lt);
+      margin-top: 4px;
+    }
+    .hero-bg-text {
+      position: absolute;
+      bottom: -2rem; left: -1rem;
+      font-family: var(--serif);
+      font-size: 10rem;
+      font-weight: 700;
+      color: rgba(176,106,58,0.06);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ─── MARQUEE ─────────────────────────────────────── */
+    .marquee-strip {
+      background: var(--caramel);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex; gap: 3rem;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-item {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--linen);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(250,246,240,0.5); flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── SECTION SHARED ─────────────────────────────── */
+    section { padding: 6rem 0; }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--caramel); }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--caramel); }
+    .section-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--warm-gray);
+      max-width: 520px;
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-placeholder {
+      width: 100%; aspect-ratio: 4/5;
+      background: var(--espresso);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .about-img-placeholder .icon { font-size: 4rem; opacity: 0.4; }
+    .about-img-placeholder p {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(250,246,240,0.4);
+    }
+    .about-img-tag {
+      position: absolute;
+      bottom: -1.5rem; right: -1.5rem;
+      background: var(--caramel);
+      color: var(--linen);
+      padding: 1.25rem 1.5rem;
+      font-family: var(--serif);
+      font-size: 0.85rem;
+      font-style: italic;
+      line-height: 1.4;
+      max-width: 180px;
+      border-radius: 2px;
+    }
+    .about-img-tag strong { display: block; font-style: normal; font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+    .about-values { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+    .about-value {
+      display: flex; gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--linen-dark);
+    }
+    .about-value:last-child { border-bottom: none; padding-bottom: 0; }
+    .about-value-num {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--caramel);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2rem;
+    }
+    .about-value-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 4px;
+    }
+    .about-value-desc { font-size: 0.875rem; color: var(--warm-gray); line-height: 1.6; }
+
+    /* ─── PRODUCTS ───────────────────────────────────── */
+    #products { background: var(--linen); }
+    .products-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: var(--cream);
+      border: 1px solid var(--linen-dark);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(44,26,14,0.1);
+    }
+    .product-img {
+      aspect-ratio: 4/3;
+      background: var(--espresso);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-img-icon { font-size: 3.5rem; opacity: 0.3; }
+    .product-img-label {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--caramel);
+      color: var(--linen);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+    .product-body { padding: 1.25rem; }
+    .product-origin {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 4px;
+    }
+    .product-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 6px;
+    }
+    .product-desc { font-size: 0.82rem; color: var(--warm-gray); line-height: 1.55; margin-bottom: 1rem; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+    .product-btn {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      border: 1px solid var(--caramel);
+      padding: 6px 14px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .product-btn:hover { background: var(--caramel); color: var(--linen); }
+
+    /* ─── BLOG ───────────────────────────────────────── */
+    #blog { background: var(--espresso); }
+    #blog .section-eyebrow { color: var(--caramel-lt); }
+    #blog .section-eyebrow::before { background: var(--caramel-lt); }
+    #blog .section-title { color: var(--linen); }
+    #blog .section-title em { color: var(--caramel-lt); }
+    .blog-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap; }
+    .blog-link-all {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--caramel-lt);
+      display: flex; align-items: center; gap: 8px;
+      transition: gap 0.2s;
+    }
+    .blog-link-all:hover { gap: 14px; }
+    .blog-link-all::after { content: '→'; }
+    .blog-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem; }
+    .blog-card {
+      background: rgba(250,246,240,0.05);
+      border: 1px solid rgba(250,246,240,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .blog-card:hover { background: rgba(250,246,240,0.08); }
+    .blog-card-img {
+      aspect-ratio: 16/9;
+      background: rgba(250,246,240,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+    .blog-card.featured .blog-card-img { aspect-ratio: 16/8; }
+    .blog-card-body { padding: 1.25rem; }
+    .blog-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--caramel-lt);
+      margin-bottom: 8px;
+    }
+    .blog-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--linen);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .blog-card.featured .blog-title { font-size: 1.3rem; }
+    .blog-excerpt {
+      font-size: 0.82rem;
+      color: rgba(250,246,240,0.55);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .blog-meta {
+      font-size: 0.7rem;
+      color: rgba(250,246,240,0.35);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── NEWSLETTER ─────────────────────────────────── */
+    #newsletter {
+      background: var(--linen-dark);
+      padding: 5rem 0;
+    }
+    .newsletter-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .newsletter-inner .section-eyebrow { justify-content: center; }
+    .newsletter-inner .section-eyebrow::before { display: none; }
+    .newsletter-body { font-size: 1rem; line-height: 1.75; color: var(--warm-gray); margin: 0 auto 2rem; }
+    .newsletter-form { display: flex; gap: 8px; max-width: 440px; margin: 0 auto; }
+    .newsletter-input {
+      flex: 1;
+      padding: 12px 16px;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      background: var(--cream);
+      border: 1px solid var(--warm-gray-lt);
+      border-radius: 2px;
+      color: var(--espresso);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-input:focus { border-color: var(--caramel); }
+    .newsletter-input::placeholder { color: var(--warm-gray-lt); }
+    .newsletter-btn {
+      padding: 12px 24px;
+      background: var(--espresso);
+      color: var(--linen);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .newsletter-btn:hover { background: var(--espresso-mid); }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(250,246,240,0.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--linen);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand-logo span {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--caramel-lt);
+      letter-spacing: 0.12em;
+    }
+    .footer-tagline { font-size: 0.82rem; color: rgba(250,246,240,0.4); line-height: 1.6; margin-top: 1rem; max-width: 240px; }
+    .footer-social { display: flex; gap: 12px; margin-top: 1.5rem; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(250,246,240,0.15);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      color: rgba(250,246,240,0.5);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-social a:hover { border-color: var(--caramel); color: var(--caramel-lt); }
+    .footer-col-title {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--caramel-lt);
+      margin-bottom: 1rem;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: rgba(250,246,240,0.45);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--linen); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem;
+      color: rgba(250,246,240,0.25);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.1s; }
+    .fade-up.d2 { transition-delay: 0.2s; }
+    .fade-up.d3 { transition-delay: 0.3s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 3rem 2rem; }
+      .hero-right { min-height: 50vh; }
+      .about-grid, .products-grid, .blog-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-img-tag { right: 0; }
+    }
+    @media (max-width: 600px) {
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .newsletter-form { flex-direction: column; }
+      .products-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── MOBILE MENU ────────────────────────────────── */
+    .mobile-menu {
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: var(--espresso);
+      padding: 1.5rem 2rem;
+      display: none;
+      flex-direction: column; gap: 1rem;
+      border-top: 1px solid rgba(250,246,240,0.1);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-gray-lt);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(250,246,240,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <div class="nav-logo">
+      Humble Press
+      <span>Coffee Roaster</span>
+    </div>
+    <ul class="nav-links" role="list">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#blog">Journal</a></li>
+      <li><a href="#newsletter" class="nav-cta">Subscribe</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" role="button" aria-label="Open menu" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">Our Story</a>
+    <a href="#products" onclick="closeMenu()">Shop</a>
+    <a href="#blog" onclick="closeMenu()">Journal</a>
+    <a href="#newsletter" onclick="closeMenu()">Subscribe</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow fade-up">Cagayan de Oro · Mindanao</div>
+      <h1 class="hero-headline fade-up d1">
+        Coffee roasted<br>with <em>humility</em><br>&amp; intention.
+      </h1>
+      <p class="hero-body fade-up d2">
+        We are a small-batch specialty coffee roaster based in Cagayan de Oro. Every cup starts with a relationship — with farmers, with the land, with the slow art of roasting.
+      </p>
+      <div class="hero-actions fade-up d3">
+        <a href="#products" class="btn-primary">Shop the Roast</a>
+        <a href="#about" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-bg-text">PRESS</div>
+      <div class="hero-right-inner">
+        <div class="hero-badge">
+          <div class="hero-badge-icon">☕</div>
+          <div class="hero-badge-text">Humble Press</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat">
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label">Arabica</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">SB</div>
+            <div class="hero-stat-label">Small Batch</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">CDO</div>
+            <div class="hero-stat-label">Roastery</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Single Origin<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Slow Roasted<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Direct Trade<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Specialty Grade<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Mindanao Grown<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Humble Press Coffee Roaster<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Single Origin<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Slow Roasted<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Direct Trade<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Specialty Grade<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Mindanao Grown<span class="marquee-dot"></span></span>
+      <span class="marquee-item">Humble Press Coffee Roaster<span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap fade-up">
+          <div class="about-img-placeholder">
+            <div class="icon">☕</div>
+            <p>Add your photo here</p>
+          </div>
+          <div class="about-img-tag">
+            <strong>Est. 2020</strong>
+            Roasting with love in CDO
+          </div>
+        </div>
+        <div>
+          <div class="section-eyebrow fade-up">Who We Are</div>
+          <h2 class="section-title fade-up d1">A <em>humble</em> roaster<br>with big roots.</h2>
+          <p class="section-body fade-up d2">
+            Humble Press started as a love letter to good coffee and the Filipino farmers who grow it. We source directly from small farms across Mindanao, roast in small batches, and share every cup with the same care it was grown with.
+          </p>
+          <div class="about-values fade-up d3">
+            <div class="about-value">
+              <div class="about-value-num">01</div>
+              <div>
+                <div class="about-value-title">Source with integrity</div>
+                <div class="about-value-desc">We work directly with farmers, paying fair prices and building long-term relationships rooted in trust.</div>
+              </div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-num">02</div>
+              <div>
+                <div class="about-value-title">Roast with patience</div>
+                <div class="about-value-desc">Every batch is slow-roasted to unlock the natural sweetness and complexity of the bean.</div>
+              </div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-num">03</div>
+              <div>
+                <div class="about-value-title">Share with humility</div>
+                <div class="about-value-desc">Great coffee doesn't need to be pretentious. We just want you to taste something real.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="container">
+      <div class="products-header">
+        <div>
+          <div class="section-eyebrow fade-up">The Roast</div>
+          <h2 class="section-title fade-up d1">Our <em>current</em><br>offerings.</h2>
+        </div>
+        <a href="#" class="btn-ghost fade-up">View all products</a>
+      </div>
+      <div class="products-grid">
+
+        <div class="product-card fade-up">
+          <div class="product-img">
+            <span class="product-img-icon">🌿</span>
+            <span class="product-img-label">Bestseller</span>
+          </div>
+          <div class="product-body">
+            <div class="product-origin">Bukidnon, Mindanao</div>
+            <div class="product-name">Mount Kalatungan Natural</div>
+            <div class="product-desc">Stone fruit, dark chocolate, and a long caramel finish. Medium-dark roast. Ideal for espresso or pour-over.</div>
+            <div class="product-footer">
+              <div class="product-price">₱380 / 200g</div>
+              <button class="product-btn">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card fade-up d1">
+          <div class="product-img">
+            <span class="product-img-icon">🌸</span>
+            <span class="product-img-label">New Arrival</span>
+          </div>
+          <div class="product-body">
+            <div class="product-origin">Atok, Benguet</div>
+            <div class="product-name">Cordillera Washed Light</div>
+            <div class="product-desc">Bright citrus, jasmine floral notes, with a clean, tea-like finish. Washed process. Perfect for filter.</div>
+            <div class="product-footer">
+              <div class="product-price">₱420 / 200g</div>
+              <button class="product-btn">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card fade-up d2">
+          <div class="product-img">
+            <span class="product-img-icon">🍫</span>
+          </div>
+          <div class="product-body">
+            <div class="product-origin">Sagada, Mt. Province</div>
+            <div class="product-name">Sagada Honey Process</div>
+            <div class="product-desc">Rich body, red berry sweetness, and bittersweet chocolate. Honey process. Great as an everyday cup.</div>
+            <div class="product-footer">
+              <div class="product-price">₱350 / 200g</div>
+              <button class="product-btn">Order Now</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog">
+    <div class="container">
+      <div class="blog-header">
+        <div>
+          <div class="section-eyebrow fade-up">The Journal</div>
+          <h2 class="section-title fade-up d1">Stories from<br>the <em>roastery.</em></h2>
+        </div>
+        <a href="#" class="blog-link-all fade-up">All Posts</a>
+      </div>
+      <div class="blog-grid">
+
+        <div class="blog-card featured fade-up">
+          <div class="blog-card-img">☕</div>
+          <div class="blog-card-body">
+            <div class="blog-tag">Origin Story</div>
+            <div class="blog-title">Why we drove 4 hours into Bukidnon to find our best bean yet</div>
+            <div class="blog-excerpt">It started with a tip from a fellow roaster. A small farm, a farmer named Mang Bert, and coffee cherry so ripe they fell into our hands.</div>
+            <div class="blog-meta">May 2025 · 6 min read</div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up d1">
+          <div class="blog-card-img" style="font-size:2rem;">🌡️</div>
+          <div class="blog-card-body">
+            <div class="blog-tag">Brew Guide</div>
+            <div class="blog-title">Getting the most from a pour-over at home</div>
+            <div class="blog-excerpt">Water temperature matters more than you think. Here's our simple approach.</div>
+            <div class="blog-meta">April 2025 · 4 min read</div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-up d2">
+          <div class="blog-card-img" style="font-size:2rem;">🤝</div>
+          <div class="blog-card-body">
+            <div class="blog-tag">Farmer Stories</div>
+            <div class="blog-title">Meet the family behind our Sagada Honey Process</div>
+            <div class="blog-excerpt">Three generations of coffee farming on a mountainside. This is their story.</div>
+            <div class="blog-meta">March 2025 · 5 min read</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="section-eyebrow fade-up">Stay in the Loop</div>
+        <h2 class="section-title fade-up d1">Fresh roast. <em>Fresh news.</em></h2>
+        <p class="newsletter-body fade-up d2">
+          Get notified when new batches drop, read behind-the-scenes stories from our roastery, and get first access to limited releases.
+        </p>
+        <form class="newsletter-form fade-up d3" onsubmit="handleSubscribe(event)">
+          <input
+            type="email"
+            class="newsletter-input"
+            placeholder="your@email.com"
+            required
+            aria-label="Email address"
+          />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <p style="font-size:0.72rem;color:var(--warm-gray);margin-top:1rem;" class="fade-up">No spam, ever. Unsubscribe any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            Humble Press Coffee Roaster
+            <span>Cagayan de Oro, Mindanao</span>
+          </div>
+          <p class="footer-tagline">Small-batch specialty coffee roasted with humility and intention, right here in CDO.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/humblepresscoffeeroaster" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="TikTok">tt</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Shop</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#products">All Coffees</a></li>
+            <li><a href="#">Single Origin</a></li>
+            <li><a href="#">Brew Equipment</a></li>
+            <li><a href="#">Gift Boxes</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Journal</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#blog">Brew Guides</a></li>
+            <li><a href="#blog">Farmer Stories</a></li>
+            <li><a href="#blog">Roastery News</a></li>
+            <li><a href="#blog">Origin Reports</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">About</div>
+          <ul class="footer-links" role="list">
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Wholesale</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Humble Press Coffee Roaster. All rights reserved.</span>
+        <span>Made with love in Cagayan de Oro 🇵🇭</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter') mobileMenu.classList.toggle('open'); });
+    function closeMenu() { mobileMenu.classList.remove('open'); }
+
+    // Newsletter
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const input = e.target.querySelector('input');
+      btn.textContent = '✓ Subscribed!';
+      btn.style.background = '#4A2E1A';
+      input.value = '';
+      setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
+    }
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
